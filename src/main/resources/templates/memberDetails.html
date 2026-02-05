@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Member Details</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        td, th {
+            border: 1px solid #aaa;
+            padding: 8px;
+        }
+        th {
+            background: #eee;
+        }
+        .card {
+            border: 1px solid #aaa;
+            padding: 20px;
+            width: 600px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+
+    <h2 th:text="${member.fullName}"></h2>
+
+    <p>📧 <span th:text="${member.email}"></span></p>
+    <p>📞 <span th:text="${member.phoneNumber}"></span></p>
+    <p>
+        🗓 Registration date:
+        <span th:text="${#temporals.format(member.registrationDate, 'dd.MM.yyyy')}"></span>
+    </p>
+
+    <hr>
+
+    <h3>Borrowed Books</h3>
+
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Remove</th>
+        </tr>
+
+        <tr th:each="book : ${books}">
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.author}"></td>
+            <td>
+                <a th:href="@{/members/book/remove(memberId=${member.id}, bookId=${book.id})}">
+                    Remove
+                </a>
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+</body>
+</html>

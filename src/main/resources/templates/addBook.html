@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Book</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="header">Add Book</div>
+
+
+    <div class="content">
+        <form class="form-box" action="/books/add" method="POST">
+
+            <input type="text"name="title" placeholder="Title" required>
+
+
+            <input type="text"name="author" placeholder="Author" required>
+
+
+            <input type="number"name="year" placeholder="Year" required>
+
+            <input type="text"name="genre" placeholder="Genre" required>
+            Category:
+            <select name="category">
+                <option th:each="cat : ${categories}"
+                        th:value="${cat.id}"
+                        th:text="${cat.name}">
+                </option>
+            </select>
+
+            <div class="actions">
+                <button>Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
