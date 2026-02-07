@@ -39,6 +39,6 @@ public class CategoryController {
     @GetMapping("category/delete")
     public String deleteCategory(@RequestParam("id") int id) {
         categoryService.deleteById(id);
-        return "redirect:/category";
+        return "redirect:/categories";
     }
 }
