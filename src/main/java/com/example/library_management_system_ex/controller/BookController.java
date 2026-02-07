@@ -30,7 +30,7 @@ public class BookController {
         modelMap.addAttribute("books", bookService.findBooksByCategoryId(categoryId));
         modelMap.addAttribute("categories", categoryService.findAll());
         return "book";
-    }
+     }
 
     @GetMapping("books/search")
     public String searchBooks(@RequestParam("search") String search, ModelMap modelMap){
