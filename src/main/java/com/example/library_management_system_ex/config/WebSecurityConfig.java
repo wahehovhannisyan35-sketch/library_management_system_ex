@@ -62,12 +62,7 @@ public class WebSecurityConfig {
         return new InMemoryUserDetailsManager(user, admin);
     }
 
-//    @Bean
-//    DaoAuthenticationProvider authenticationProvider(UserDetailsService uds, PasswordEncoder encoder) {
-//        DaoAuthenticationProvider provider = new DaoAuthenticationProvider(uds);
-//        provider.setPasswordEncoder(encoder);
-//        return provider;
-//    }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {

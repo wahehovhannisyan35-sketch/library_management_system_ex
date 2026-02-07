@@ -1,15 +1,86 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход - Психологическая драма</title>
+    <style>
+        /* Основные стили для страницы */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom right, #2c3e50, #bdc3c7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #fff;
+        }
+
+        .login-container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 40px 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+            width: 350px;
+            text-align: center;
+        }
+
+        .login-container h1 {
+            margin-bottom: 30px;
+            font-weight: 300;
+            font-size: 28px;
+            color: #f8f9fa;
+        }
+
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #e74c3c;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-container button:hover {
+            background-color: #c0392b;
+        }
+
+        .login-container .register-link {
+            display: block;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #ecf0f1;
+            text-decoration: none;
+        }
+
+        .login-container .register-link:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-Login
-<form action="/login" method="post">
-  <input type="text" name="username" placeholder="Username"> <br>
-  <input type="password" name="password" placeholder="Password"> <br>
-  <input type="submit" value="Login">
-  </form>
+<div class="login-container">
+    <h1>Вход в систему</h1>
+    <form action="/login" method="post">
+        <input type="text" name="username" placeholder="Имя пользователя" required>
+        <input type="password" name="password" placeholder="Пароль" required>
+        <button type="submit">Войти</button>
+    </form>
+    <a class="register-link" href="/register">Нет аккаунта? Зарегистрироваться</a>
+</div>
 </body>
 </html>
