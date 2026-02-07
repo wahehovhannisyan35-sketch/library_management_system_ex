@@ -26,6 +26,8 @@ public class Member {
     private String phoneNumber;
 
     private LocalDateTime registrationDate;
+
+    private String pictureName;
     @ManyToMany
     @JoinTable(name = "member_book",
             joinColumns = @JoinColumn(name = "member_id"),

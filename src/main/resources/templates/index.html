@@ -77,6 +77,9 @@
   <a href="/books" class="nav-link">Books</a>
   <a href="/categories" class="nav-link">Categories</a>
   <a href="/members" class="nav-link">Members</a>
+  <span th:if="${userName} != null"> Welcome <span th:text="${userName}"></span></span>
+  <a th:if="${userName} != null" href="/logout">Logout</a> <br><br>
+  <a th:if="${userName} == null" href="/login">Login</a> <br><br>
 </nav>
 
 <main class="main-container">

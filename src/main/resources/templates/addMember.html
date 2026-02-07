@@ -48,7 +48,7 @@
 
 <h2>Add New Member</h2>
 
-<form action="/members/add" method="post" th:object="${member}">
+<form action="/members/add" method="post" th:object="${member}" enctype="multipart/form-data">
 
     <label>Full Name</label>
     <input type="text" th:field="*{fullName}" required />
@@ -58,7 +58,7 @@
 
     <label>Phone</label>
     <input type="text" th:field="*{phoneNumber}" />
-
+    <input type="file" name="pic"> <br>
     <button type="submit">Save</button>
 </form>
 

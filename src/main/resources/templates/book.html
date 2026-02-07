@@ -3,15 +3,60 @@
 <head>
     <title>Library Management</title>
     <style>
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        .nav-bar { border-bottom: 1px solid #000; padding: 10px; display: flex; gap: 20px; align-items: center; }
-        .controls { margin: 20px 0; display: flex; gap: 15px; align-items: center; }
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th, td { border: 1px solid #333; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        .btn-action { border: 1px solid #000; padding: 5px 15px; text-decoration: none; color: black; background: #fff; cursor: pointer; font-size: 14px; }
-        .btn-members { margin-left: auto; }
-        select, input { padding: 4px; }
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .nav-bar {
+            border-bottom: 1px solid #000;
+            padding: 10px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .controls {
+            margin: 20px 0;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            border: 1px solid #333;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .btn-action {
+            border: 1px solid #000;
+            padding: 5px 15px;
+            text-decoration: none;
+            color: black;
+            background: #fff;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-members {
+            margin-left: auto;
+        }
+
+        select, input {
+            padding: 4px;
+        }
+
         .nav-link {
             padding: 0 20px;
             border-right: 1px solid #ccc;
@@ -34,24 +79,34 @@
         <a href="/members" class="nav-link">Members</a>
     </div>
     <div class="nav-right">
-        <a href="/members/add"> + Add New Book</a>
+        <a href="/books/add"> + Add New Book</a>
     </div>
 </div>
 
 <div class="controls">
-    <label>Category:</label>
-    <select>
-        <option>All</option>
-        <option th:each="cat : ${categories}" th:text="${cat}" th:value="${cat}"></option>
-    </select>
+    <form action="/books/filter" method="get">
+        <label>
+            Category:
+            <select name="categoryId">
+                <option th:each="cat : ${categories}"
+                        th:text="${cat.name}"
+                        th:value="${cat.id}"></option>
+            </select>
+        </label>
+        <button type="submit">Filter</button>
+    </form>
 
-    <label style="margin-left: 20px;">Search:</label>
-    <input type="text">
-    <button class="btn-action">Search</button>
-
+    <form action="/books/search" method="get">
+        <label style="margin-left: 20px;">
+            Search:
+            <input type="text" name="search">
+        </label>
+        <button class="btn-action" type="submit">Search</button>
+    </form>
 
 </div>
 <table>
+    <thead>
     <tr>
         <th>Id</th>
         <th>Title</th>
@@ -61,6 +116,8 @@
         <th>Category Name</th>
         <th>Action</th>
     </tr>
+    </thead>
+    <tbody>
     <tr th:each="book : ${books}">
         <td th:text="${book.id}"></td>
         <td th:text="${book.title}"></td>
@@ -68,8 +125,9 @@
         <td th:text="${book.year}"></td>
         <td th:text="${book.genre}"></td>
         <td th:text="${book.category.name}"></td>
-        <td><a th:href="@{/books/delete(id=${book.id})}">Delete</a> </td>
+        <td><a th:href="@{/books/delete(id=${book.id})}">Delete</a></td>
     </tr>
+    </tbody>
 </table>
 
 

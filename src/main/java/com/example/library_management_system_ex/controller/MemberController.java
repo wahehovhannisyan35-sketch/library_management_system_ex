@@ -1,10 +1,9 @@
 package com.example.library_management_system_ex.controller;
 
 
-import com.example.library_management_system_ex.model.Book;
 import com.example.library_management_system_ex.model.Member;
-import com.example.library_management_system_ex.repository.BookRepository;
-import com.example.library_management_system_ex.repository.MemberRepository;
+import com.example.library_management_system_ex.service.BookService;
+import com.example.library_management_system_ex.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -12,24 +11,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
 @Controller
 @RequiredArgsConstructor
 public class MemberController {
-    private final MemberRepository memberRepository;
-    private final BookRepository bookRepository;
+
+    private final MemberService memberService;
+    private final BookService bookService;
 
     @GetMapping("/members")
     public String members(ModelMap modelMap){
-        modelMap.addAttribute("members", memberRepository.findAll());
-        modelMap.addAttribute("books", bookRepository.findAll());
+        modelMap.addAttribute("members", memberService.findAll());
+        modelMap.addAttribute("books", bookService.findAll());
         return "member";
     }
     @GetMapping("/members/delete")
     public String deleteMember(@RequestParam("id") int id){
-        memberRepository.deleteById(id);
+        memberService.deleteById(id);
         return "redirect:/members";
     }
 
@@ -40,23 +41,25 @@ public class MemberController {
     }
 
     @PostMapping("members/add")
-    public String addMember(@ModelAttribute Member member){
+    public String addMember(@ModelAttribute Member member,@RequestParam ("pic") MultipartFile multipartFile){
        member.setRegistrationDate(LocalDateTime.now());
-       memberRepository.save(member);
+       memberService.save(member, multipartFile);
         return "redirect:/members";
     }
 
     @PostMapping("/members/borrow")
     public String borrowBook(@RequestParam("memberId") int memberId, @RequestParam("bookId") int bookId) {
-        Member member = memberRepository.findById(memberId).orElseThrow();
-        Book book = bookRepository.findById(bookId).orElseThrow();
-        member.getBorrowedBooks().add(book);
-        memberRepository.save(member);
+        memberService.findById(memberId).ifPresent(member -> {
+          bookService.findById(bookId).ifPresent(book -> {
+              member.getBorrowedBooks().add(book);
+              memberService.save(member);
+          });
+        });
         return "redirect:/members";
     }
 @GetMapping("/members/details")
     public String memberDetails(@RequestParam("id") int id, ModelMap modelMap) {
-    Member member=memberRepository.findById(id).orElseThrow(()->new RuntimeException("Member not found"));
+    Member member=memberService.findById(id).orElseThrow(()->new RuntimeException("Member not found"));
     modelMap.addAttribute("member", member);
     modelMap.addAttribute("books", member.getBorrowedBooks());
 return "memberDetails";

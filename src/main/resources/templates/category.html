@@ -119,6 +119,7 @@
             <th>ID</th>
             <th>Name</th>
             <th>Description</th>
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
@@ -126,6 +127,7 @@
             <td th:text="${category.id}"></td>
             <td th:text="${category.name}"></td>
             <td th:text="${category.description}"></td>
+            <td><a th:href="@{/category/delete(id=${category.id})}">Delete</a> </td>
         </tr>
         </tbody>
     </table>
